@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+       <script>
+             var int;
+             function getVote(int){
+                 if(int == ""){
+                     document.getElementById("getResult").innnerHTML ="";
+                 }else{
+                     if(window.XMLHttpRequest){
+                         var r = new XMLHttpRequest();
+                     }else{
+                          var r = new ActiveXObject("Microsoft.XMLHTTP");
+                     }
+                     r.onreadystatechange = function(){
+                         if(this.status == 200 && this.readyState == 4){
+                             document.getElementById("getResult").innerHTML = this.responseText;
+                         }
+                     }
+                     r.open("GET", "AJAX_poll.php?p=" + int, true);
+                     r.send();
+                 }
+             }
+           </script>
+</head>
+<body>
+<div id = "getResult">
+<h3>Do you like PHP and AJAX so far?</h3>
+<form>
+Yes:
+<input type = "radio" name = "vote" value="1" onclick = "getVote(this.value)"><br />
+No:
+<input type = "radio" name = "vote" value="0" onclick = "getVote(this.value)">
+</form>
+</div>
+</body>
+</html>

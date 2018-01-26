@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+      <script>
+          var str;
+          function showResult(str){
+              if(str == ""){
+                  document.getElementById("getResult").innerHTML = "";
+              }else{
+                  if(window.XMLHttpRequest){
+                      var r = new XMLHttpRequest();
+                  }else{
+                      var r = new ActiveXObject("Microsoft.XMLHTTP");
+                  }
+
+                  r.onreadystatechange = function(){
+                      if(this.status == 200 && this.readyState == 4){
+                          document.getElementById("getResult").innerHTML = r.responseText;
+                          document.getElementById("getResult").style.border="1px solid black";//居然还可以设置css文件， 厉害了
+                      }
+                  }
+                  r.open("GET", "AJAX_Live_Search.php?q=" + str, "true");
+                  r.send();
+              }
+          }
+          </script>
+</head>
+<body>
+<b>Live search for a W3schools page in the input field below</b><br />
+<form>
+<input type = "text" onkeyup = "showResult(this.value)">
+</form>
+<span id = "getResult"></span>
+</body>
+</html>

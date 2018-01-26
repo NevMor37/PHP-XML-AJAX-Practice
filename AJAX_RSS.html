@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+       <script>
+           var int;
+           function getRSS(int){
+               if(int == 0){
+                   document.getElementbyId("showRSS").innerHTML ="";
+                   return;
+               }else{
+                   if(window.XMLHttpRequest){
+                       var r = new XMLHttpRequest();
+                   }else{
+                       var r = new ActiveXObject("Microsoft.XMLHTTP");
+                   }
+                   r.onreadystatechange = function(){
+                       if(this.status == 200 && this.readyState ==4){
+                           document.getElementById("showRSS").innerHTML = this.responseText;
+                       }
+                   }
+                   //console.log(int);
+                   r.open("GET", "AJAX_RSS.php?q=" + int, true);
+                   r.send();
+               }
+           }
+           </script>
+</head>
+<body>
+      <form>
+             <select name = "s" onchange = "getRSS(this.value)">
+                 <option value = '0'>Please select an RSS-feed</option>
+                 <option value = '1'>Google News</option>
+                 <option value = '2'>NBC News</option>
+             </select>
+      </form><br/>
+      <div id ="showRSS"></div>
+</body>
+</html>

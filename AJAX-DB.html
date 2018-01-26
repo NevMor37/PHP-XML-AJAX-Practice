@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ajax-DB Test</title>
+      <script>
+            function showUser(str){
+                if(str == ""){
+                    document.getElementById("txtHint").innerHTML = "";
+                }else{
+                      if(window.XMLHttpRequest){//检查AJAX 中httprequest对象是否存在 浏览器版本问题
+                          var r= new XMLHttpRequest();
+                      }else{
+                          var r = new ActiveXObject("Microsoft.XMLHTTP");
+                      }
+                      r.onreadystatechange = function(){
+                           if(this.readyState == 4 && this.status == 200){
+                                document.getElementById("txtHint").innerHTML = r.responseText;
+                           }
+                      }
+                      r.open("GET", "AJAX-DB.php?q=" + str, true);
+                      r.send();
+                }
+            }
+          </script>
+</head>
+<body>
+<form>
+        <select name = "users" onchange = "showUser(this.value)">
+            <option value = "">Select a person:</option>
+            <option value = "1"> Shubin</option>
+            <option value = "2"> Yangsui</option>
+            <option value = "3"> Ziang</option>
+            <option value = "4"> MinMing</option>
+        </select>
+</form>
+<br />
+<div id = "txtHint"><b>Person info will be listed here</b></div>
+
+</body>
+</html>

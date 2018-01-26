@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+      <script>
+           function showCD(str){
+                if(str == ""){
+                    document.getElementById("showHint").innerHTML = "";
+                }else{
+                    if(window.XMLHttpRequest){
+                        var r = new XMLHttpRequest();
+                    }else{
+                        var r = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    r.onreadystatechange = function(){
+                        if(r.readyState == 4 && r.status == 200){
+                            document.getElementById("showHint").innerHTML = r.responseText;
+                        }
+                    }
+                    r.open("GET", "AJAX_XML.php?q=" +str, true);
+                    r.send();
+                }
+           }
+      </script>
+</head>
+<body>
+    <form>
+     <select name = "cds" onchange = "showCD(this.value)">
+         <option value = "">Please select a cd</option>
+         <option value = "Bob Dylan">Bob Dylan</option>
+         <option value="Bee Gees">Bee Gees</option>
+         <option value="Cat Stevens">Cat Stevens</option>
+     </select>
+    </form>
+    <p>The info of the CD will be listed below: <br /></p><span id = "showHint"></span>
+</body>
+</html>
